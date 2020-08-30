@@ -62,5 +62,8 @@ gulp.task('watch', gulp.parallel('serve', function () {
     gulp.watch('src/*.js', gulp.series('js'));
 }));
 
+// Build only
+gulp.task('build', gulp.series('sass', 'html', 'js'));
+
 // Default task
 gulp.task('default', gulp.series('watch'));
