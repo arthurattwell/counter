@@ -67,6 +67,8 @@ body {
     z-index: 1;
     width: 50%;
 
+    -webkit-tap-highlight-color: transparent; // no link-tap highlight
+
     -webkit-touch-callout: none; // iOS Safari
     -webkit-user-select: none; // Safari
     -khtml-user-select: none; // Konqueror HTML
