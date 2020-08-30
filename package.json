@@ -1,0 +1,16 @@
+{
+  "name": "counter",
+  "version": "1.0.0",
+  "description": "A simple page for keeping score",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arthur Attwell",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "browser-sync": "^2.26.12",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0"
+  }
+}

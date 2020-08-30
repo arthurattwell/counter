@@ -1,0 +1,108 @@
+// Custom properties
+:root {
+  --blue: blue;
+  --white: white;
+  --black: black;
+  --red: red;
+  --green: green;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.counters {
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 2;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.counter {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 2;
+    grid-template-rows: 1;
+    width: 100%;
+    z-index: 0;
+    position: relative;
+
+    // Colours
+    &:nth-child(1) {
+        color: var(--red);
+    }
+    &:nth-child(2) {
+        color: var(--green);
+    }
+}
+
+.number {
+    font-size: 10rem;
+    text-align: center;
+}
+
+.up, .down {
+    font-size: 3rem;
+    cursor: pointer;
+    padding: 1rem;
+    position: absolute;
+    z-index: 1;
+    width: 50%;
+
+    -webkit-touch-callout: none; // iOS Safari
+    -webkit-user-select: none; // Safari
+    -khtml-user-select: none; // Konqueror HTML
+    -moz-user-select: none; // Old versions of Firefox
+    -ms-user-select: none; // Internet Explorer/Edge
+    user-select: none; // Chrome, Edge, Opera and Firefox
+}
+
+.up {
+    left: 50%;
+    right: 100%;
+    text-align: right;
+}
+
+.down {
+    left: 0;
+    right: 50%;
+}
+
+// Changes for number of players
+.counters {
+    &.players-1 {
+        writing-mode: vertical-rl;
+        .counter {
+            height: 100vh;
+        }
+    }
+    &.players-2 {
+        .counter {
+            height: 50vh;
+        }
+    }
+    &.players-3 {
+        .counter {
+            width: 50vh;
+            height: 50vw;
+        }
+    }
+}
