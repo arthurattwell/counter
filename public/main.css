@@ -90,12 +90,10 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  line-height: 1;
   transform: translate(-200%, -50%);
   z-index: 2; }
   #settings-wrapper .button:nth-child(2) {
-    color: var(--white);
     transform: translate(100%, -50%); }
   #settings-wrapper .button input {
     display: none; }
-    #settings-wrapper .button input:checked + label {
-      color: var(--grey); }
