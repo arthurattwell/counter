@@ -1,9 +1,12 @@
 :root {
-  --blue: blue;
-  --white: white;
   --black: black;
-  --red: red;
-  --green: green; }
+  --white: white;
+  --grey: #333;
+  --blue: #0392cf;
+  --red: #ee4035;
+  --green: #7bc043;
+  --orange: #f37736;
+  --creme: #fdf498; }
 
 html {
   box-sizing: border-box; }
@@ -37,38 +40,36 @@ body {
   grid-template-rows: 1;
   width: 100%;
   z-index: 0;
-  position: relative; }
-  .counter:nth-child(1) {
-    color: var(--red); }
-  .counter:nth-child(2) {
-    color: var(--green); }
-
-.number {
-  font-size: 10rem;
-  text-align: center; }
-
-.up, .down {
-  font-size: 3rem;
-  cursor: pointer;
-  padding: 1rem;
-  position: absolute;
-  z-index: 1;
-  width: 50%;
+  position: relative;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-
-.up {
-  left: 50%;
-  right: 100%;
-  text-align: right; }
-
-.down {
-  left: 0;
-  right: 50%; }
+  .counter:nth-child(1) {
+    color: var(--red); }
+  .counter:nth-child(2) {
+    color: var(--green); }
+  .counter .number {
+    font-size: 10em;
+    text-align: center; }
+  .counter .up, .counter .down {
+    color: var(--grey);
+    font-size: 3em;
+    cursor: pointer;
+    padding: 0.25em;
+    position: absolute;
+    z-index: 1;
+    width: 50%;
+    -webkit-tap-highlight-color: transparent; }
+  .counter .up {
+    left: 50%;
+    right: 100%;
+    text-align: right; }
+  .counter .down {
+    left: 0;
+    right: 50%; }
 
 .counters.players-1 {
   writing-mode: vertical-rl; }
@@ -77,7 +78,24 @@ body {
 
 .counters.players-2 .counter {
   height: 50vh; }
+  .counters.players-2 .counter:nth-child(1) {
+    transform: rotate(180deg); }
 
 .counters.players-3 .counter {
   width: 50vh;
   height: 50vw; }
+
+#settings-wrapper .button {
+  color: var(--grey);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-200%, -50%);
+  z-index: 2; }
+  #settings-wrapper .button:nth-child(2) {
+    color: var(--white);
+    transform: translate(100%, -50%); }
+  #settings-wrapper .button input {
+    display: none; }
+    #settings-wrapper .button input:checked + label {
+      color: var(--grey); }

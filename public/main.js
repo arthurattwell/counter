@@ -1,15 +1,43 @@
 /*jslint browser */
+/*globals BigScreen */
 
-function resetCounters(number) {
+function save() {
     'use strict';
 
-    if (Number.isInteger(number)) {
-        var numbers = document.querySelectorAll('.number');
-        numbers.forEach(function (number) {
-            number.innerHTML = number;
-        });
-    } else {
-        return;
+    var player1Score, player2Score, player3Score, player4Score;
+    if (document.getElementById('player1')) {
+        player1Score = Number(document.querySelector('#player1 .number').textContent);
+    }
+
+    if (document.getElementById('player2')) {
+        player2Score = Number(document.querySelector('#player2 .number').textContent);
+    }
+
+    if (document.getElementById('player3')) {
+        player3Score = Number(document.querySelector('#player3 .number').textContent);
+    }
+
+    if (document.getElementById('player4')) {
+        player4Score = Number(document.querySelector('#player4 .number').textContent);
+    }
+
+    var status = {
+        players: document.querySelectorAll('.counter').length,
+        player1Score: player1Score,
+        player2Score: player2Score,
+        player3Score: player3Score,
+        player4Score: player4Score
+    };
+
+    localStorage.setItem('status', JSON.stringify(status));
+}
+
+function setCounter(player, score) {
+    'use strict';
+
+    if (document.getElementById(player)) {
+        var numberElement = document.querySelector('#' + player + ' .number');
+        numberElement.innerHTML = score;
     }
 }
 
@@ -25,6 +53,7 @@ function shift(button, direction) {
         newNumber = currentNumber - 1;
     }
     counter.querySelector('.number').innerHTML = newNumber;
+    save();
 }
 
 function listenForUps() {
@@ -47,5 +76,28 @@ function listenForDowns() {
     });
 }
 
+function listenForFullscreen() {
+    'use strict';
+    var fullscreenInput = document.getElementById('fullscreen');
+
+    fullscreenInput.addEventListener('click', function () {
+        console.log('toggling');
+        BigScreen.toggle();
+    });
+}
+
+function loadSavedStatus() {
+    'use strict';
+
+    var statusString = localStorage.getItem('status');
+    var status = JSON.parse(statusString);
+    setCounter('player1', status.player1Score);
+    setCounter('player2', status.player2Score);
+    setCounter('player3', status.player3Score);
+    setCounter('player4', status.player4Score);
+}
+
 listenForUps();
 listenForDowns();
+listenForFullscreen();
+document.onload = loadSavedStatus();

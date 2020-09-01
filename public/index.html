@@ -7,21 +7,42 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+
     <div class="counters players-2">
-        <div class="counter">
+
+        <div class="counter" id="player1">
             <div class="number">20</div>
             <div class="down">−</div>
             <div class="up">+</div>
         </div>
-        <div class="counter">
+
+        <div class="counter" id="player2">
             <div class="number">20</div>
             <div class="down">−</div>
             <div class="up">+</div>
         </div>
+
     </div>
-    <div class="settings">
-        <!-- To add number of players and counter reset -->
+
+    <div id="settings-wrapper">
+
+        <div id="open-settings" class="button">
+            <input type="checkbox" id="open-settings-button" name="open-settings-button">
+            <label for="open-settings-button">⋯</label>
+        </div>
+
+        <div id="fullscreen-settings" class="button">
+            <input type="checkbox" id="fullscreen" name="fullscreen">
+            <label for="fullscreen">↔</label>
+        </div>
+
+        <div id="settings">
+            <!-- To add number of players and counter reset -->
+        </div>
+
     </div>
+
+    <script src="bigscreen.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

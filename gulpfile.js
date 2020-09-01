@@ -35,7 +35,7 @@ gulp.task('html', function () {
 gulp.task('js', function () {
     'use strict';
 
-    return gulp.src('src/main.js')
+    return gulp.src('src/*.js')
         .pipe(gulp.dest('public'))
         .pipe(browserSync.reload({
             stream: true

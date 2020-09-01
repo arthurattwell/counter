@@ -1,18 +1,22 @@
 // Custom properties
 :root {
-  --blue: blue;
-  --white: white;
-  --black: black;
-  --red: red;
-  --green: green;
+    --black: black;
+    --white: white;
+    --grey: #333;
+
+    --blue: #0392cf;
+    --red: #ee4035;
+    --green: #7bc043;
+    --orange: #f37736;
+    --creme: #fdf498;
 }
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 *, *:before, *:after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
@@ -45,48 +49,53 @@ body {
     z-index: 0;
     position: relative;
 
-    // Colours
-    &:nth-child(1) {
-        color: var(--red);
-    }
-    &:nth-child(2) {
-        color: var(--green);
-    }
-}
-
-.number {
-    font-size: 10rem;
-    text-align: center;
-}
-
-.up, .down {
-    font-size: 3rem;
-    cursor: pointer;
-    padding: 1rem;
-    position: absolute;
-    z-index: 1;
-    width: 50%;
-
-    -webkit-tap-highlight-color: transparent; // no link-tap highlight
-
+    // Avoid selecting the text when tapping
     -webkit-touch-callout: none; // iOS Safari
     -webkit-user-select: none; // Safari
     -khtml-user-select: none; // Konqueror HTML
     -moz-user-select: none; // Old versions of Firefox
     -ms-user-select: none; // Internet Explorer/Edge
     user-select: none; // Chrome, Edge, Opera and Firefox
+
+        // Colours
+    &:nth-child(1) {
+        color: var(--red);
+    }
+
+    &:nth-child(2) {
+        color: var(--green);
+    }
+
+    .number {
+        font-size: 10em;
+        text-align: center;
+    }
+    
+    .up, .down {
+        color: var(--grey);
+        font-size: 3em;
+        cursor: pointer;
+        padding: 0.25em;
+        position: absolute;
+        z-index: 1;
+        width: 50%;
+    
+        // Avoid link-tap highlight, esp. on Chrome
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .up {
+        left: 50%;
+        right: 100%;
+        text-align: right;
+    }
+    
+    .down {
+        left: 0;
+        right: 50%;
+    }
 }
 
-.up {
-    left: 50%;
-    right: 100%;
-    text-align: right;
-}
-
-.down {
-    left: 0;
-    right: 50%;
-}
 
 // Changes for number of players
 .counters {
@@ -99,6 +108,10 @@ body {
     &.players-2 {
         .counter {
             height: 50vh;
+
+            &:nth-child(1) {
+                transform: rotate(180deg);
+            }
         }
     }
     &.players-3 {
@@ -106,5 +119,36 @@ body {
             width: 50vh;
             height: 50vw;
         }
+    }
+}
+
+#settings-wrapper {
+    
+    .button {
+        color: var(--grey);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-200%, -50%);
+        z-index: 2;
+
+        &:nth-child(2) {
+            color: var(--white);
+            transform: translate(100%, -50%);
+        }
+
+        input {
+            display: none;
+
+            &:checked {
+                & + label {
+                    color: var(--grey);
+                }
+            }
+        }
+    }
+
+    #settings {
+        
     }
 }
