@@ -1,5 +1,5 @@
 {
-  "name": "counter",
+  "name": "keep-score",
   "version": "1.0.0",
   "description": "A simple page for keeping score",
   "main": "index.js",
