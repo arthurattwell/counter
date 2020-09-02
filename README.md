@@ -1,4 +1,4 @@
-# Counter
+# Keep score
 
 A one-page web app for keeping score. **Work in progress.**
 
