@@ -4,7 +4,12 @@
 function save() {
     'use strict';
 
-    var player1Score, player2Score, player3Score, player4Score;
+    var players, player1Score, player2Score, player3Score, player4Score;
+
+    if (document.getElementById('counters').getAttribute('data-counters')) {
+        players = Number(document.getElementById('counters').getAttribute('data-counters'));
+    }
+
     if (document.getElementById('player1')) {
         player1Score = Number(document.querySelector('#player1 .number').textContent);
     }
@@ -22,7 +27,7 @@ function save() {
     }
 
     var status = {
-        players: document.querySelectorAll('.counter').length,
+        players: players,
         player1Score: player1Score,
         player2Score: player2Score,
         player3Score: player3Score,
@@ -87,9 +92,29 @@ function listenForFullscreen() {
         if (document.body.classList.contains('fullscreen')) {
             document.body.classList.remove('fullscreen');
         } else {
-            document.body.classList.add('fullscreen')
+            document.body.classList.add('fullscreen');
         }
     };
+}
+
+// Show correct number of counters
+function showCounters(numberOfCounters) {
+    'use strict';
+
+    if (!document.getElementById('counters').getAttribute('data-counters')) {
+        document.getElementById('counters').setAttribute('data-counters', numberOfCounters);
+    }
+
+    var counters = document.querySelectorAll('.counter');
+    counters.forEach(function (counter) {
+        if (Number(counter.getAttribute('data-counter')) < numberOfCounters + 1) {
+            counter.classList.remove('hide');
+        } else {
+            counter.classList.add('hide');
+        }
+    });
+
+    save();
 }
 
 function loadSavedStatus() {
@@ -109,20 +134,11 @@ function loadSavedStatus() {
     if (status.player4Score) {
         setCounter('player4', status.player4Score);
     }
-}
-
-// Show correct number of counters
-function showCounters(numberOfCounters) {
-    'use strict';
-
-    var counters = document.querySelectorAll('.counter');
-    counters.forEach(function (counter) {
-        if (Number(counter.getAttribute('data-counter')) < numberOfCounters + 1) {
-            counter.classList.remove('hide');
-        } else {
-            counter.classList.add('hide');
-        }
-    });
+    if (status.players) {
+        showCounters(status.players);
+    } else {
+        showCounters(2);
+    }
 }
 
 // Add or remove players
@@ -158,5 +174,5 @@ function listenToAddRemoveCounters() {
 listenForUps();
 listenForDowns();
 listenForFullscreen();
-listenToAddRemoveCounters()
+listenToAddRemoveCounters();
 document.onload = loadSavedStatus();

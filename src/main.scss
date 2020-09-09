@@ -39,8 +39,8 @@ body {
 
 .counters {
     display: grid;
-    grid-template-columns: 1;
-    grid-template-rows: 2;
+    grid-template-columns: 2fr;
+    grid-template-rows: 2fr;
     height: 100vh;
     width: 100vw;
     position: relative;
@@ -100,34 +100,79 @@ body {
     }
 }
 
+// Hiding counters
+.hide {
+    display: none;
+}
 
 // Changes for number of counters
-.counters {
+[data-counters='1'] {
+    .counter {
+        height: 50vh;
 
-    .hide {
-        display: none;
-    }
-
-    &.counters-1 {
-        writing-mode: vertical-rl;
-        .counter {
-            height: 100vh;
+        .up {
+            left: 50%;
+            right: 100%;
+            text-align: right;
+        }
+        
+        .down {
+            left: 0;
+            right: 50%;
         }
     }
-    &.counters-2 {
-        .counter {
-            height: 50vh;
 
-            &:nth-child(1) {
-                transform: rotate(180deg);
-            }
+    & + #settings-wrapper {
+        position: absolute;
+        height: 20vh;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+[data-counters='2'] {
+    .counter {
+        height: 50vh;
+
+        &:nth-child(1) {
+            transform: rotate(180deg);
         }
     }
-    &.counters-3 {
-        .counter {
-            width: 50vh;
-            height: 50vw;
-        }
+}
+
+[data-counters='3'] {
+
+    .counter {
+        font-size: 0.5rem;
+    }
+
+    .counter:nth-child(1) {
+        width: 50vh;
+        height: 50vw;
+    }
+    
+    .counter:nth-child(2) {
+        width: 25vh;
+        height: 25vw;
+        transform: rotate(90deg);
+        bottom: 0;
+        right: 0;
+    }
+    
+    .counter:nth-child(3) {
+        width: 25vh;
+        height: 25vw;
+        transform: rotate(-90deg);
+        right: 0;
+        bottom: 0;
+    }
+}
+
+[data-counters='4'] {
+    .counter {
+        width: 25vh;
+        height: 25vw;
     }
 }
 
