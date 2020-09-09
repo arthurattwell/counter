@@ -8,15 +8,27 @@
 </head>
 <body>
 
-    <div class="counters players-2">
+    <div id="counters" class="counters" data-counters="2">
 
-        <div class="counter" id="player1">
+        <div class="counter" id="player1" data-counter="1">
             <div class="number">20</div>
             <div class="down">−</div>
             <div class="up">+</div>
         </div>
 
-        <div class="counter" id="player2">
+        <div class="counter" id="player2" data-counter="2">
+            <div class="number">20</div>
+            <div class="down">−</div>
+            <div class="up">+</div>
+        </div>
+
+        <div class="counter hide" id="player3" data-counter="3">
+            <div class="number">20</div>
+            <div class="down">−</div>
+            <div class="up">+</div>
+        </div>
+
+        <div class="counter hide" id="player4" data-counter="4">
             <div class="number">20</div>
             <div class="down">−</div>
             <div class="up">+</div>
@@ -26,19 +38,16 @@
 
     <div id="settings-wrapper">
 
-        <div id="open-settings" class="button">
-            <input type="checkbox" id="open-settings-button" name="open-settings-button">
-            <label for="open-settings-button">⋯</label>
-        </div>
+        <a id="remove-counter">−</a>
 
         <div id="fullscreen-settings" class="button">
             <input type="checkbox" id="fullscreen" name="fullscreen">
-            <label for="fullscreen">↔</label>
+            <label for="fullscreen">
+                <span></span>
+            </label>
         </div>
 
-        <div id="settings">
-            <!-- To add number of players and counter reset -->
-        </div>
+        <a id="add-counter">+</a>
 
     </div>
 

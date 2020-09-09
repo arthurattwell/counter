@@ -43,7 +43,6 @@ function setCounter(player, score) {
 
 function shift(button, direction) {
     'use strict';
-    console.log(button);
     var counter = button.parentNode;
     var currentNumber = Number(counter.querySelector('.number').textContent);
     var newNumber;
@@ -81,9 +80,16 @@ function listenForFullscreen() {
     var fullscreenInput = document.getElementById('fullscreen');
 
     fullscreenInput.addEventListener('click', function () {
-        console.log('toggling');
         BigScreen.toggle();
     });
+
+    BigScreen.onchange = function () {
+        if (document.body.classList.contains('fullscreen')) {
+            document.body.classList.remove('fullscreen');
+        } else {
+            document.body.classList.add('fullscreen')
+        }
+    };
 }
 
 function loadSavedStatus() {
@@ -91,13 +97,66 @@ function loadSavedStatus() {
 
     var statusString = localStorage.getItem('status');
     var status = JSON.parse(statusString);
-    setCounter('player1', status.player1Score);
-    setCounter('player2', status.player2Score);
-    setCounter('player3', status.player3Score);
-    setCounter('player4', status.player4Score);
+    if (status.player1Score) {
+        setCounter('player1', status.player1Score);
+    }
+    if (status.player2Score) {
+        setCounter('player2', status.player2Score);
+    }
+    if (status.player3Score) {
+        setCounter('player3', status.player3Score);
+    }
+    if (status.player4Score) {
+        setCounter('player4', status.player4Score);
+    }
+}
+
+// Show correct number of counters
+function showCounters(numberOfCounters) {
+    'use strict';
+
+    var counters = document.querySelectorAll('.counter');
+    counters.forEach(function (counter) {
+        if (Number(counter.getAttribute('data-counter')) < numberOfCounters + 1) {
+            counter.classList.remove('hide');
+        } else {
+            counter.classList.add('hide');
+        }
+    });
+}
+
+// Add or remove players
+function listenToAddRemoveCounters() {
+    'use strict';
+
+    var add = document.getElementById('add-counter');
+    var remove = document.getElementById('remove-counter');
+
+    add.addEventListener('click', function () {
+        var numberOfCounters = Number(document.getElementById('counters')
+            .getAttribute('data-counters'));
+
+        if (numberOfCounters < 4) {
+            numberOfCounters += 1;
+            document.getElementById('counters').setAttribute('data-counters', numberOfCounters);
+            showCounters(numberOfCounters);
+        }
+    });
+
+    remove.addEventListener('click', function () {
+        var numberOfCounters = Number(document.getElementById('counters')
+            .getAttribute('data-counters'));
+
+        if (numberOfCounters > 1) {
+            numberOfCounters -= 1;
+            document.getElementById('counters').setAttribute('data-counters', numberOfCounters);
+            showCounters(numberOfCounters);
+        }
+    });
 }
 
 listenForUps();
 listenForDowns();
 listenForFullscreen();
+listenToAddRemoveCounters()
 document.onload = loadSavedStatus();

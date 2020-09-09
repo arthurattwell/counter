@@ -71,29 +71,73 @@ body {
     left: 0;
     right: 50%; }
 
-.counters.players-1 {
+.counters .hide {
+  display: none; }
+
+.counters.counters-1 {
   writing-mode: vertical-rl; }
-  .counters.players-1 .counter {
+  .counters.counters-1 .counter {
     height: 100vh; }
 
-.counters.players-2 .counter {
+.counters.counters-2 .counter {
   height: 50vh; }
-  .counters.players-2 .counter:nth-child(1) {
+  .counters.counters-2 .counter:nth-child(1) {
     transform: rotate(180deg); }
 
-.counters.players-3 .counter {
+.counters.counters-3 .counter {
   width: 50vh;
   height: 50vw; }
 
-#settings-wrapper .button {
+#settings-wrapper #add-counter,
+#settings-wrapper #remove-counter {
+  color: var(--grey);
+  cursor: pointer;
+  font-size: 3rem;
+  height: 2rem;
+  left: 50%;
+  line-height: 0.4;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 2rem;
+  z-index: 2;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+#settings-wrapper #add-counter {
+  transform: translate(3rem, -50%); }
+
+#settings-wrapper #remove-counter {
+  transform: translate(-5rem, -50%); }
+
+#settings-wrapper #fullscreen-settings {
   color: var(--grey);
   position: absolute;
   top: 50%;
   left: 50%;
   line-height: 1;
-  transform: translate(-200%, -50%);
+  transform: translate(-50%, -50%);
   z-index: 2; }
-  #settings-wrapper .button:nth-child(2) {
-    transform: translate(100%, -50%); }
-  #settings-wrapper .button input {
+  #settings-wrapper #fullscreen-settings input {
     display: none; }
+  #settings-wrapper #fullscreen-settings label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--green);
+    border-radius: 2rem;
+    border: 0.2rem solid var(--grey);
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem; }
+
+body.fullscreen #add-counter,
+body.fullscreen #remove-counter {
+  visibility: hidden; }
+
+body.fullscreen #settings-wrapper #fullscreen-settings label {
+  background-color: transparent; }

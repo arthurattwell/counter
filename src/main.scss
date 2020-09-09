@@ -1,3 +1,13 @@
+// Avoid selecting the text when tapping
+@mixin avoidSelect() {
+    -webkit-touch-callout: none; // iOS Safari
+    -webkit-user-select: none; // Safari
+    -khtml-user-select: none; // Konqueror HTML
+    -moz-user-select: none; // Old versions of Firefox
+    -ms-user-select: none; // Internet Explorer/Edge
+    user-select: none; // Chrome, Edge, Opera and Firefox
+}
+
 // Custom properties
 :root {
     --black: black;
@@ -49,15 +59,9 @@ body {
     z-index: 0;
     position: relative;
 
-    // Avoid selecting the text when tapping
-    -webkit-touch-callout: none; // iOS Safari
-    -webkit-user-select: none; // Safari
-    -khtml-user-select: none; // Konqueror HTML
-    -moz-user-select: none; // Old versions of Firefox
-    -ms-user-select: none; // Internet Explorer/Edge
-    user-select: none; // Chrome, Edge, Opera and Firefox
+    @include avoidSelect();
 
-        // Colours
+    // Colours
     &:nth-child(1) {
         color: var(--red);
     }
@@ -97,15 +101,20 @@ body {
 }
 
 
-// Changes for number of players
+// Changes for number of counters
 .counters {
-    &.players-1 {
+
+    .hide {
+        display: none;
+    }
+
+    &.counters-1 {
         writing-mode: vertical-rl;
         .counter {
             height: 100vh;
         }
     }
-    &.players-2 {
+    &.counters-2 {
         .counter {
             height: 50vh;
 
@@ -114,7 +123,7 @@ body {
             }
         }
     }
-    &.players-3 {
+    &.counters-3 {
         .counter {
             width: 50vh;
             height: 50vw;
@@ -124,25 +133,71 @@ body {
 
 #settings-wrapper {
     
-    .button {
+    #add-counter,
+    #remove-counter {
+        color: var(--grey);
+        cursor: pointer;
+        font-size: 3rem;
+        height: 2rem;
+        left: 50%;
+        line-height: 0.4;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        width: 2rem;
+        z-index: 2;
+
+        @include avoidSelect();
+    }
+
+    #add-counter {
+        transform: translate(3rem, -50%);
+    }
+
+    #remove-counter {
+        transform: translate(-5rem, -50%);
+    }
+
+    #fullscreen-settings {
         color: var(--grey);
         position: absolute;
         top: 50%;
         left: 50%;
         line-height: 1;
-        transform: translate(-200%, -50%);
+        transform: translate(-50%, -50%);
         z-index: 2;
-
-        &:nth-child(2) {
-            transform: translate(100%, -50%);
-        }
 
         input {
             display: none;
         }
+
+        label {
+
+            // Flex
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            // Appearance
+            background-color: var(--green);
+            border-radius: 2rem;
+            border: 0.2rem solid var(--grey);
+            cursor: pointer;
+            height: 2rem;
+            width: 2rem;
+        }
+    }
+}
+
+// Fullscreen view
+body.fullscreen {
+
+    #add-counter,
+    #remove-counter {
+        visibility: hidden;
     }
 
-    #settings {
-        
+    #settings-wrapper #fullscreen-settings label {
+        background-color: transparent;
     }
 }
