@@ -38,16 +38,16 @@ body {
 }
 
 .counters {
-    display: grid;
-    grid-template-columns: 2fr;
-    grid-template-rows: 2fr;
     height: 100vh;
     width: 100vw;
-    position: relative;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+    grid-template-rows: 50vh 50vh;
 }
 
 .counter {
@@ -55,9 +55,10 @@ body {
     display: grid;
     grid-template-columns: 2;
     grid-template-rows: 1;
+    height: 100%;
     width: 100%;
     z-index: 0;
-    position: relative;
+    position: absolute;
 
     @include avoidSelect();
 
@@ -70,11 +71,19 @@ body {
         color: var(--green);
     }
 
+    &:nth-child(3) {
+        color: var(--white);
+    }
+
+    &:nth-child(4) {
+        color: var(--blue);
+    }
+
     .number {
         font-size: 10em;
         text-align: center;
     }
-    
+
     .up, .down {
         color: var(--grey);
         font-size: 3em;
@@ -83,17 +92,17 @@ body {
         position: absolute;
         z-index: 1;
         width: 50%;
-    
+
         // Avoid link-tap highlight, esp. on Chrome
         -webkit-tap-highlight-color: transparent;
     }
-    
+
     .up {
         left: 50%;
         right: 100%;
         text-align: right;
     }
-    
+
     .down {
         left: 0;
         right: 50%;
@@ -108,14 +117,13 @@ body {
 // Changes for number of counters
 [data-counters='1'] {
     .counter {
-        height: 50vh;
 
         .up {
             left: 50%;
             right: 100%;
             text-align: right;
         }
-        
+
         .down {
             left: 0;
             right: 50%;
@@ -133,51 +141,75 @@ body {
 
 [data-counters='2'] {
     .counter {
-        height: 50vh;
 
         &:nth-child(1) {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 1;
             transform: rotate(180deg);
+        }
+        &:nth-child(2) {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 2;
+            grid-row-end: 3;
         }
     }
 }
 
 [data-counters='3'] {
 
-    .counter {
-        font-size: 0.5rem;
-    }
-
-    .counter:nth-child(1) {
-        width: 50vh;
-        height: 50vw;
-    }
-    
-    .counter:nth-child(2) {
-        width: 25vh;
-        height: 25vw;
-        transform: rotate(90deg);
-        bottom: 0;
-        right: 0;
-    }
-    
-    .counter:nth-child(3) {
-        width: 25vh;
-        height: 25vw;
-        transform: rotate(-90deg);
-        right: 0;
-        bottom: 0;
+    .counter:nth-child(4) {
+        display: none;
     }
 }
 
+[data-counters='3'],
 [data-counters='4'] {
-    .counter {
-        width: 25vh;
-        height: 25vw;
+    font-size: 0.5rem;
+
+    .counter:nth-child(1) {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        transform: rotate(90deg);
+    }
+
+    .counter:nth-child(2) {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        transform: rotate(-90deg);
+    }
+
+    .counter:nth-child(3) {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        transform: rotate(90deg);
+    }
+
+    .counter:nth-child(4) {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        transform: rotate(-90deg);
     }
 }
 
 #settings-wrapper {
-    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    z-index: 2;
+
     #add-counter,
     #remove-counter {
         color: var(--grey);
@@ -205,12 +237,6 @@ body {
 
     #fullscreen-settings {
         color: var(--grey);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        line-height: 1;
-        transform: translate(-50%, -50%);
-        z-index: 2;
 
         input {
             display: none;
