@@ -122,11 +122,13 @@ body {
         left: 50%;
         right: 100%;
         text-align: right;
+        padding-left: 5rem; // avoid overlap with large number
     }
 
     .down {
         left: 0;
         right: 50%;
+        padding-right: 5rem; // avoid overlap with large number
     }
 
     .customise {
@@ -135,14 +137,14 @@ body {
         font-size: 0.8rem;
         position: absolute;
         bottom: 1rem;
-        top: 60%;
+        top: 50%;
         left: 50%;
         transform: translateX(-50%);
 
         .previous-color,
         .current-color,
         .next-color {
-            margin-right: 2rem;
+            margin-right: 1rem;
             border: 2px solid var(--grey);
             border-radius: 2rem;
             cursor: pointer;
@@ -188,7 +190,7 @@ body {
         }
 
         .customise {
-            top: 30%;
+            top: 50%;
         }
     }
 
@@ -215,6 +217,10 @@ body {
             grid-column-end: 3;
             grid-row-start: 2;
             grid-row-end: 3;
+        }
+
+        .customise {
+            top: 80%;
         }
     }
 }
