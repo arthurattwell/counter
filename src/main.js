@@ -4,7 +4,8 @@
 function save() {
     'use strict';
 
-    var players, player1Score, player2Score, player3Score, player4Score;
+    var players, player1Score, player2Score, player3Score, player4Score,
+        player1Color, player2Color, player3Color, player4Color;
 
     if (document.getElementById('counters').getAttribute('data-counters')) {
         players = Number(document.getElementById('counters').getAttribute('data-counters'));
@@ -12,26 +13,36 @@ function save() {
 
     if (document.getElementById('player1')) {
         player1Score = Number(document.querySelector('#player1 .number').textContent);
+        player1Color = document.getElementById('player1').getAttribute('data-color');
     }
 
     if (document.getElementById('player2')) {
         player2Score = Number(document.querySelector('#player2 .number').textContent);
+        player2Color = document.getElementById('player2').getAttribute('data-color');
     }
 
     if (document.getElementById('player3')) {
         player3Score = Number(document.querySelector('#player3 .number').textContent);
+        player3Color = document.getElementById('player3').getAttribute('data-color');
     }
 
     if (document.getElementById('player4')) {
         player4Score = Number(document.querySelector('#player4 .number').textContent);
+        player4Color = document.getElementById('player4').getAttribute('data-color');
     }
 
     var status = {
         players: players,
+
         player1Score: player1Score,
         player2Score: player2Score,
         player3Score: player3Score,
-        player4Score: player4Score
+        player4Score: player4Score,
+
+        player1Color: player1Color,
+        player2Color: player2Color,
+        player3Color: player3Color,
+        player4Color: player4Color
     };
 
     localStorage.setItem('status', JSON.stringify(status));
@@ -48,7 +59,7 @@ function setCounter(player, score) {
 
 function shift(button, direction) {
     'use strict';
-    var counter = button.parentNode;
+    var counter = button.closest('.counter');
     var currentNumber = Number(counter.querySelector('.number').textContent);
     var newNumber;
     if (direction === 'up') {
@@ -58,6 +69,18 @@ function shift(button, direction) {
     }
     counter.querySelector('.number').innerHTML = newNumber;
     save();
+}
+
+function setColour(player, color) {
+    'use strict';
+
+    var counter = document.getElementById(player);
+
+    if (!color) {
+        color = "#fff";
+    }
+
+    counter.style.color = color;
 }
 
 function listenForUps() {
