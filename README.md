@@ -1,6 +1,6 @@
 # Keep score
 
-A one-page web app for keeping score. I made it for playing MTG, and it's probably useful for other games, too.
+A simple web app for keeping score. I made it for playing MTG, and it's probably useful for other games, too.
 
 Once you've set your starting totals and chosen your colours, tap the middle button to go full screen.
 
