@@ -31,7 +31,8 @@ body {
   right: 0;
   display: grid;
   grid-template-columns: 50vw 50vw;
-  grid-template-rows: 50vh 50vh; }
+  grid-template-rows: 50vh 50vh;
+  justify-items: center; }
 
 .counter {
   align-items: center;
@@ -56,18 +57,34 @@ body {
     color: var(--white); }
   .counter:nth-child(4) {
     color: var(--blue); }
+  .counter .count {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 20%;
+    bottom: 20%; }
   .counter .number {
     font-size: 10em;
-    text-align: center; }
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
   .counter .up, .counter .down {
+    bottom: 0;
     color: var(--grey);
-    font-size: 3em;
     cursor: pointer;
+    display: flex;
+    font-size: 3em;
+    justify-content: center;
     padding: 0.25em;
     position: absolute;
-    z-index: 1;
+    top: 0;
     width: 50%;
+    z-index: 1;
     -webkit-tap-highlight-color: transparent; }
+    .counter .up span, .counter .down span {
+      align-self: center; }
   .counter .up {
     left: 50%;
     right: 100%;
@@ -75,6 +92,20 @@ body {
   .counter .down {
     left: 0;
     right: 50%; }
+  .counter .customise {
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 1rem;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%); }
+    .counter .customise .previous-color,
+    .counter .customise .current-color,
+    .counter .customise .next-color {
+      cursor: pointer;
+      margin-right: 2rem; }
+    .counter .customise .next-color {
+      margin-right: 0; }
 
 .hide {
   display: none; }
@@ -87,6 +118,9 @@ body {
 [data-counters='1'] .counter .down {
   left: 0;
   right: 50%; }
+
+[data-counters='1'] .counter:nth-child(2), [data-counters='1'] .counter:nth-child(3), [data-counters='1'] .counter:nth-child(4) {
+  display: none; }
 
 [data-counters='1'] + #settings-wrapper {
   position: absolute;
@@ -107,9 +141,6 @@ body {
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3; }
-
-[data-counters='3'] .counter:nth-child(4) {
-  display: none; }
 
 [data-counters='3'],
 [data-counters='4'] {
@@ -142,6 +173,14 @@ body {
     grid-row-start: 2;
     grid-row-end: 3;
     transform: rotate(-90deg); }
+
+[data-counters='3'] .counter:nth-child(3) {
+  grid-column-end: 3;
+  transform: none;
+  width: 50vh; }
+
+[data-counters='3'] .counter:nth-child(4) {
+  display: none; }
 
 #settings-wrapper {
   position: absolute;
@@ -194,3 +233,6 @@ body.fullscreen #remove-counter {
 
 body.fullscreen #settings-wrapper #fullscreen-settings label {
   background-color: transparent; }
+
+body.fullscreen .customise {
+  visibility: hidden; }

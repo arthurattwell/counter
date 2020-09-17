@@ -48,7 +48,7 @@ function setCounter(player, score) {
 
 function shift(button, direction) {
     'use strict';
-    var counter = button.parentNode;
+    var counter = button.closest('.counter');
     var currentNumber = Number(counter.querySelector('.number').textContent);
     var newNumber;
     if (direction === 'up') {
