@@ -124,10 +124,9 @@ body {
 
 [data-counters='1'] + #settings-wrapper {
   position: absolute;
-  height: 20vh;
-  bottom: 0;
-  left: 0;
-  right: 0; }
+  bottom: 3rem;
+  right: auto;
+  top: auto; }
 
 [data-counters='2'] .counter:nth-child(1) {
   grid-column-start: 1;

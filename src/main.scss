@@ -179,10 +179,9 @@ body {
 
     & + #settings-wrapper {
         position: absolute;
-        height: 20vh;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        bottom: 3rem;
+        right: auto;
+        top: auto;
     }
 }
 
