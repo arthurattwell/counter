@@ -1,38 +1,90 @@
 /*jslint browser */
 /*globals BigScreen */
 
+var colors = [
+    'snow',
+    'cyan',
+    'yellowgreen',
+    'firebrick',
+    'slategray'
+
+    // 'aqua',
+    // 'blueviolet',
+    // 'burlywood',
+    // 'cadetblue',
+    // 'chocolate',
+    // 'coral',
+    // 'cornflowerblue',
+    // 'crimson',
+    // 'darkcyan',
+    // 'darkkhaki',
+    // 'darkmagenta',
+    // 'darkorchid',
+    // 'dodgerblue',
+    // 'gainsboro',
+    // 'gold',
+    // 'goldenrod',
+    // 'indianred',
+    // 'indigo',
+    // 'ivory',
+    // 'lemonchiffon',
+    // 'lightcoral',
+    // 'lightgreen',
+    // 'lightskyblue',
+    // 'lightsteelblue',
+    // 'mediumaquamarine',
+    // 'mediumorchid',
+    // 'mediumpurple',
+    // 'mediumseagreen',
+    // 'mediumslateblue',
+    // 'mediumvioletred',
+    // 'orchid',
+    // 'palegreen',
+    // 'palevioletred',
+    // 'plum',
+    // 'rebeccapurple',
+    // 'rosybrown',
+    // 'royalblue',
+    // 'sienna',
+    // 'slateblue',
+    // 'steelblue',
+    // 'teal',
+    // 'tomato',
+    // 'violet',
+];
+
 function save() {
     'use strict';
 
-    var players, player1Score, player2Score, player3Score, player4Score,
-        player1Color, player2Color, player3Color, player4Color;
+    var numberOfplayers, player1Score, player2Score, player3Score, player4Score,
+            player1Color, player2Color, player3Color, player4Color;
 
     if (document.getElementById('counters').getAttribute('data-counters')) {
-        players = Number(document.getElementById('counters').getAttribute('data-counters'));
+        numberOfplayers = Number(document.getElementById('counters').getAttribute('data-counters'));
     }
 
     if (document.getElementById('player1')) {
         player1Score = Number(document.querySelector('#player1 .number').textContent);
-        player1Color = document.getElementById('player1').getAttribute('data-color');
+        player1Color = document.querySelector('#player1 [data-color-current]').getAttribute('data-color-current');
     }
 
     if (document.getElementById('player2')) {
         player2Score = Number(document.querySelector('#player2 .number').textContent);
-        player2Color = document.getElementById('player2').getAttribute('data-color');
+        player2Color = document.querySelector('#player2 [data-color-current]').getAttribute('data-color-current');
     }
 
     if (document.getElementById('player3')) {
         player3Score = Number(document.querySelector('#player3 .number').textContent);
-        player3Color = document.getElementById('player3').getAttribute('data-color');
+        player3Color = document.querySelector('#player3 [data-color-current]').getAttribute('data-color-current');
     }
 
     if (document.getElementById('player4')) {
         player4Score = Number(document.querySelector('#player4 .number').textContent);
-        player4Color = document.getElementById('player4').getAttribute('data-color');
+        player4Color = document.querySelector('#player4 [data-color-current]').getAttribute('data-color-current');
     }
 
     var status = {
-        players: players,
+        numberOfplayers: numberOfplayers,
 
         player1Score: player1Score,
         player2Score: player2Score,
@@ -71,16 +123,90 @@ function shift(button, direction) {
     save();
 }
 
-function setColour(player, color) {
+function getNextColor(color) {
     'use strict';
 
-    var counter = document.getElementById(player);
+    var indexOfColor = colors.indexOf(color);
+    if (indexOfColor === colors.length - 1) {
+        return colors[0];
+    } else {
+        return colors[indexOfColor + 1];
+    }
+}
 
-    if (!color) {
-        color = "#fff";
+function getPreviousColor(color) {
+    'use strict';
+
+    var indexOfColor = colors.indexOf(color);
+    if (indexOfColor === 0) {
+        return colors[colors.length - 1];
+    } else {
+        return colors[indexOfColor - 1];
+    }
+}
+
+function setColor(player, color) {
+    'use strict';
+
+    var counters;
+    if (player) {
+        counters = document.querySelectorAll('#' + player);
+    } else {
+        counters = document.querySelectorAll('.counter');
     }
 
-    counter.style.color = color;
+    counters.forEach(function (counter) {
+
+        var currentColorButton = counter.querySelector('[data-color-current]');
+        var previousColorButton = currentColorButton.previousElementSibling;
+        var nextColorButton = currentColorButton.nextElementSibling;
+
+        var currentColor = currentColorButton.getAttribute('data-color-current');
+
+        if (!color) {
+            color = currentColor;
+        }
+
+        // Get new colours
+        var previousColor = getPreviousColor(currentColor);
+        var nextColor = getNextColor(currentColor);
+
+        // Set new data-color
+        currentColorButton.setAttribute('data-color-current', color);
+        previousColorButton.setAttribute('data-color-previous', previousColor);
+        nextColorButton.setAttribute('data-color-next', nextColor);
+
+        // Set new appearances
+        counter.style.color = color;
+        currentColorButton.style.backgroundColor = color;
+        previousColorButton.style.backgroundColor = previousColor;
+        nextColorButton.style.backgroundColor = nextColor;
+    });
+
+    save();
+}
+
+function listenForColors() {
+    'use strict';
+
+    var colorButtons = document.querySelectorAll('.previous-color, .next-color');
+
+    colorButtons.forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            var counter = button.closest('.counter');
+            var nextColor = counter.querySelector('.next-color').getAttribute('data-color-next');
+            var previousColor = counter.querySelector('.previous-color').getAttribute('data-color-previous');
+
+            if (button.classList.contains('next-color')) {
+                setColor(counter.id, nextColor);
+            }
+            if (button.classList.contains('previous-color')) {
+                setColor(counter.id, previousColor);
+            }
+        });
+    });
 }
 
 function listenForUps() {
@@ -147,18 +273,22 @@ function loadSavedStatus() {
     var status = JSON.parse(statusString);
     if (status.player1Score) {
         setCounter('player1', status.player1Score);
+        setColor('player1', status.player1Color);
     }
     if (status.player2Score) {
         setCounter('player2', status.player2Score);
+        setColor('player2', status.player2Color);
     }
     if (status.player3Score) {
         setCounter('player3', status.player3Score);
+        setColor('player3', status.player31Color);
     }
     if (status.player4Score) {
         setCounter('player4', status.player4Score);
+        setColor('player4', status.player4Color);
     }
-    if (status.players) {
-        showCounters(status.players);
+    if (status.numberOfplayers) {
+        showCounters(status.numberOfplayers);
     } else {
         showCounters(2);
     }
@@ -196,6 +326,7 @@ function listenToAddRemoveCounters() {
 
 listenForUps();
 listenForDowns();
+listenForColors();
 listenForFullscreen();
 listenToAddRemoveCounters();
 document.onload = loadSavedStatus();

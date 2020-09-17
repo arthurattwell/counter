@@ -84,8 +84,8 @@ body {
         position: absolute;
         left: 0;
         right: 0;
-        top: 20%;
-        bottom: 20%;
+        top: 30%;
+        bottom: 30%;
     }
 
     .number {
@@ -130,18 +130,29 @@ body {
     }
 
     .customise {
+        align-items: center;
+        display: flex;
         font-size: 0.8rem;
         position: absolute;
         bottom: 1rem;
-        top: 80%;
+        top: 60%;
         left: 50%;
         transform: translateX(-50%);
 
         .previous-color,
         .current-color,
         .next-color {
-            cursor: pointer;
             margin-right: 2rem;
+            border: 2px solid var(--grey);
+            border-radius: 2rem;
+            cursor: pointer;
+            display: inline-block;
+            height: 1rem;
+            width: 1rem;
+        }
+
+        .current-color {
+            visibility: hidden; // no need to see current colour button
         }
 
         .next-color {
@@ -174,6 +185,10 @@ body {
         &:nth-child(3),
         &:nth-child(4) {
             display: none;
+        }
+
+        .customise {
+            top: 30%;
         }
     }
 
